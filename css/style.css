@@ -1,0 +1,280 @@
+h1{
+  font-family: Bahnschrift;
+  text-align: center;
+  color: orange;
+}
+
+.promo-slider {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: 40px auto;
+  overflow: hidden;
+}
+
+.slides {
+  display: flex;
+  transition: transform 2s ease;
+}
+
+.slide {
+  min-width: 100%;
+  user-select: none;
+}
+
+.slide img {
+  width: 100%;
+  display: block;
+  border-radius: 10px;
+}
+
+/* Стрелки */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.4);
+  border: none;
+  color: white;
+  font-size: 26px;
+  padding: 8px 18px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.arrow:hover {
+  background: rgba(213, 141, 2, 0.6);
+}
+
+.arrow.left { left: 10px; }
+.arrow.right { right: 10px; }
+
+/* Точки */
+.dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.dots button {
+  width: 12px;
+  height: 12px;
+  margin: 0 5px;
+  border-radius: 50%;
+  border: none;
+  background: #bbb;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.dots button.active {
+  background: #f2c300;
+}
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: black;
+}
+
+.menu {
+  background: #131313;
+  padding: 60px 150px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.menu-title {
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #c1a20d;
+  font-weight: 600;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-list > li {
+  font-size: 22px;
+  background: #232323;
+  color: #dfdf1e;
+  margin: 15px 0;
+  cursor: pointer;
+  transition: color 0.3s;
+  position: relative;
+  border-radius: 12px;
+}
+
+.menu-list > li:hover {
+  color: #ff8100;
+}
+
+/* Подкатегории (скрыты по умолчанию) */
+.submenu {
+  display: none;
+  margin-top: 10px;
+  list-style: none;
+  padding: 0;
+  animation: fadeIn 0.3s ease;
+}
+
+.submenu li {
+  font-size: 18px;
+  margin: 8px 0;
+  color: #ffffff;
+  transition: 0.3s;
+}
+
+.submenu li:hover {
+  color: #9c050a;
+}
+
+/* Активное состояние */
+.menu-list li.active .submenu {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.auto-banner {
+  width: 100%;
+  overflow: hidden;
+  padding: 20px 0;
+  background: #000; /* можешь поменять */
+}
+
+.auto-track {
+  display: flex;
+  gap: 20px;
+  animation: scroll 20s linear infinite; /* скорость */
+}
+
+.auto-track img {
+  height: 120px;    /* высота фото */
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+/* Анимация */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.product{
+  width: 200px;
+  background: rgba(0, 0, 0, 0.38);
+  border-radius: 30px;
+}
+.product:hover{
+  background-color: #272424;
+}
+.price{
+  background: #ff8100;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+.match{
+  color: #ff8100;
+}
+.slot-machine {
+  text-align: center;
+  margin-top: 40px;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.reels {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.reel {
+  width: 90px;
+  height: 90px;
+  background: #222;
+  border-radius: 15px;
+  display: flex;
+  font-size: 50px;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+#spin-btn {
+  padding: 12px 35px;
+  border: none;
+  border-radius: 12px;
+  font-size: 22px;
+  background: linear-gradient(90deg, #ffd300, #ff7b00);
+  cursor: pointer;
+  color: #000;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+#spin-btn:hover {
+  transform: scale(1.05);
+}
+
+/* POPUP */
+
+.popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-content {
+  background: #222;
+  padding: 30px 40px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 0 20px gold;
+}
+
+.popup-content h2 {
+  margin-bottom: 15px;
+  color: gold;
+}
+
+#close-popup {
+  padding: 10px 25px;
+  margin-top: 20px;
+  background: gold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.balance-box {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #ffd300;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(255, 200, 0, 0.5);
+}
+

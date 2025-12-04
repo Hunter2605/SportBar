@@ -1,0 +1,192 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="description" content="">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+  <meta property="og:image:alt" content="">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.png">
+
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body class="body">
+
+  <!-- Add your site or application content here -->
+  <h1>SportBar Match</h1>
+  <div class="promo-slider">
+    <div class="slides">
+      <div class="slide active">
+        <img src="img/stock1.png" alt="Акция 1">
+      </div>
+      <div class="slide">
+        <img src="img/stock2.png" alt="Акция 2">
+      </div>
+      <div class="slide">
+        <img src="img/stock3.png" alt="Акция 3">
+      </div>
+    </div>
+
+    <button class="arrow left" id="prevBtn">❮</button>
+    <button class="arrow right" id="nextBtn">❯</button>
+
+    <div class="dots" id="dots"></div>
+  </div>
+
+  <div class="menu">
+    <div class="menu-title"> Menu </div>
+    <ul class="menu-list">
+
+      <li id="Beer">Beer
+        <ul class="submenu">
+          <div class="product"><img src="lager.avif" style="width: 150px">
+          <li>Lager</li>
+            <li class="price">6$</li>
+          </div>
+          <div class="product"><img src="stout.png" style="width: 150px">
+          <li>Stout</li>
+            <li class="price">7$</li>
+          </div>
+          <div class="product"><img src="guiness.webp" style="width: 150px">
+          <li>Guiness</li>
+            <li class="price">10$</li>
+          </div>
+        </ul>
+      </li>
+
+      <li id="Liquor">Liquor
+        <ul class="submenu">
+          <div class="product"><img src="MontenegroAmaro.webp" style="width: 150px">
+          <li>Amaro Montenegro</li>
+            <li class="price">40$</li>
+          </div>
+          <div class="product"><img src="jager.png" style="width: 150px">
+          <li>Jagermeister</li>
+            <li class="price">38$</li>
+          </div>
+          <div class="product"><img src="sambuca.png" style="height: 150px">
+          <li>Sambuca</li>
+            <li class="price">38$</li>
+          </div>
+        </ul>
+      </li>
+
+      <li id="Gin">Gin
+        <ul class="submenu">
+          <div class="product"><img src="bombay.webp" style="height: 150px">
+          <li>Bombay Saphire</li>
+            <li class="price">40$</li>
+          </div>
+          <div class="product"><img src="bosford.png" style="width: 150px">
+          <li>Bosford</li>
+            <li class="price">35$</li>
+          </div>
+        </ul>
+      </li>
+
+      <li id="Whiskey">Whiskey
+        <ul class="submenu">
+          <div class="product"><img src="dewars.png" style="width: 150px">
+          <li>Dewar's</li>
+            <li class="price">40$</li>
+          </div>
+          <div class="product"><img src="jimbeam.webp" style="width: 150px">
+          <li>JimBeam</li>
+            <li class="price">30$</li>
+          </div>
+          <div class="product"><img src="jackdan.png" style="width: 150px">
+          <li>Jack Daniels</li>
+            <li class="price">38$</li>
+          </div>
+        </ul>
+      </li>
+
+      <li id="Snacks">Snacks
+        <ul class="submenu">
+          <div class="product"><img src="fishch.png" style="width: 150px; border-radius: 12px">
+            <li>Fish & chips</li>
+            <li class="price">10$</li>
+          </div>
+          <div class="product"><img src="shrimps.jpg" style="width: 150px; border-radius: 12px">
+            <li>Shrimps</li>
+            <li class="price">20$</li>
+          </div>
+          <div class="product"><img src="french.jpg" style="width: 150px; border-radius: 12px">
+            <li>French fries</li>
+            <li class="price">6$</li>
+          </div>
+          <div class="product"><img src="chips.png" style="width: 150px;">
+            <li>Chips</li>
+            <li class="price">3$</li>
+          </div>
+        </ul>
+      </li>
+
+    </ul>
+  </div>
+  <br>
+  <br>
+  <h2 class="match">Matches of the day</h2>
+  <div class="auto-banner">
+    <div class="auto-track">
+      <img src="Man-United-vs-Man-City.webp">
+      <img src="bottom2.png">
+      <img src="bottom3.png">
+      <img src="bottom4.png">
+      <img src="Man-United-vs-Man-City.webp">
+      <img src="bottom2.png">
+      <img src="bottom3.png">
+      <img src="bottom4.png">
+      <img src="Man-United-vs-Man-City.webp">
+      <img src="bottom2.png">
+      <img src="bottom3.png">
+      <img src="bottom4.png">
+      <img src="Man-United-vs-Man-City.webp">
+      <img src="bottom2.png">
+      <img src="bottom3.png">
+      <img src="bottom4.png">
+    </div>
+  </div>
+
+  <br>
+  <br>
+  <br>
+  <div class="balance-box">
+    Balance: <span id="balance-amount">0</span>
+  </div>
+  <div class="slot-machine">
+    <div class="reels">
+      <div class="reel" id="r1">🍒</div>
+      <div class="reel" id="r2">⭐</div>
+      <div class="reel" id="r3">🍋</div>
+    </div>
+
+    <button id="spin-btn">SPIN 🎰</button>
+  </div>
+
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <h2>JACKPOT 777!</h2>
+      <p style="color: yellow">You won 1 bottle of Jagermeister!</p>
+      <button id="close-popup">OK</button>
+    </div>
+  </div>
+
+
+  <script src="js/app.js"></script>
+
+</body>
+
+</html>
