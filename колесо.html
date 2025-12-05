@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Slot Machine</title>
+  <style>
+    body {
+      background: #000;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      padding-top: 40px;
+      color: #fff;
+    }
+
+    .slot-container {
+      text-align: center;
+    }
+
+    .balance-box {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #ffd300;
+      text-shadow: 0 0 8px rgba(255, 200, 0, 0.4);
+    }
+
+    .reels-box {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      justify-content: center;
+    }
+
+    .reel {
+      width: 120px;
+      height: 120px;
+      overflow: hidden;
+      position: relative;
+      border: 3px solid #444;
+      border-radius: 12px;
+      background: #111;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.1) inset;
+    }
+
+    .reel-track {
+      position: absolute;
+      width: 100%;
+    }
+
+    .symbol {
+      height: 120px;
+      display: flex;
+      font-size: 64px;
+      justify-content: center;
+      align-items: center;
+      user-select: none;
+    }
+
+    #spin-btn {
+      font-size: 22px;
+      padding: 10px 26px;
+      background: #ffcc00;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #spin-btn:disabled {
+      background: #8d7400;
+      cursor: not-allowed;
+    }
+
+    /* POPUP */
+
+    .popup {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup-content {
+      background: #222;
+      padding: 25px 40px;
+      border-radius: 12px;
+      font-size: 26px;
+      color: #fff;
+      text-align: center;
+    }
+
+    #close-popup {
+      margin-top: 15px;
+      padding: 8px 20px;
+      background: #ffcc00;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="slot-container">
+
+  <div class="balance-box">
+    Balance: <span id="balance-amount">0</span>
+  </div>
+
+  <div class="reels-box">
+    <div class="reel"><div class="reel-track" id="track1"></div></div>
+    <div class="reel"><div class="reel-track" id="track2"></div></div>
+    <div class="reel"><div class="reel-track" id="track3"></div></div>
+  </div>
+
+  <button id="spin-btn">SPIN 🎰</button>
+
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <p>JACKPOT 777!</p>
+      <button id="close-popup">OK</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+
+    // Звуки
+    const spinSound = new Audio("sounds/spin.mp3");
+    const stopSound = new Audio("sounds/stop.mp3");
+    const winSound = new Audio("sounds/win.mp3");
+    const jackpotSound = new Audio("sounds/jackpot.mp3");
+
+    function playSound(snd) {
+      snd.currentTime = 0;
+      snd.play();
+    }
+
+    // Баланс = бонусы
+    let balance = parseInt(localStorage.getItem("slotBonus") || "0", 10);
+    const balanceText = document.getElementById("balance-amount");
+
+    function updateBalance() {
+      balanceText.textContent = balance;
+    }
+
+    function saveBalance() {
+      localStorage.setItem("slotBonus", balance);
+    }
+
+    updateBalance();
+
+    // Символы
+    const symbols = ["🍒", "⭐", "🍋", "7️⃣"];
+
+    function fillTrack(track) {
+      track.innerHTML = "";
+      for (let i = 0; i < 25; i++) {
+        const d = document.createElement("div");
+        d.className = "symbol";
+        d.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        track.appendChild(d);
+      }
+    }
+
+    // Реальное вращение
+    function spinReel(track, duration, finalSymbol, callback) {
+      fillTrack(track);
+
+      const symbolH = 120;
+
+      let start = null;
+
+      function animate(ts) {
+        if (!start) start = ts;
+
+        let progress = ts - start;
+        let offset = -((progress * 0.5) % (symbolH * 25));
+
+        track.style.transform = `translateY(${offset}px)`;
+
+        if (progress < duration) {
+          requestAnimationFrame(animate);
+        } else {
+          // финальный символ
+          track.innerHTML = "";
+          for (let i = 0; i < 5; i++) {
+            let d = document.createElement("div");
+            d.className = "symbol";
+            d.textContent = finalSymbol;
+            track.appendChild(d);
+          }
+          track.style.transform = "translateY(0px)";
+          callback && callback();
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+
+    // Награды
+    function getReward(a, b, c) {
+      if (a === "7️⃣" && b === "7️⃣" && c === "7️⃣") return 100;
+      if (a === "⭐" && b === "⭐" && c === "⭐") return 50;
+      if (a === "🍒" && b === "🍒" && c === "🍒") return 25;
+      if (a === "🍋" && b === "🍋" && c === "🍋") return 10;
+      if (a === b && b === c) return 5;
+      return 0;
+    }
+
+    const btn = document.getElementById("spin-btn");
+    const popup = document.getElementById("popup");
+    const closePopup = document.getElementById("close-popup");
+
+    closePopup.onclick = () => popup.style.display = "none";
+
+
+    btn.onclick = function () {
+
+      btn.disabled = true;
+      btn.textContent = "SPINNING...";
+
+      playSound(spinSound);
+
+      // случайные символы
+      const s1 = symbols[Math.floor(Math.random() * symbols.length)];
+      const s2 = symbols[Math.floor(Math.random() * symbols.length)];
+      const s3 = symbols[Math.floor(Math.random() * symbols.length)];
+
+      // ВСЕ барабаны начинают вращение ОДНОВРЕМЕННО
+      spinReel(document.getElementById("track1"), 1200, s1, () => {
+        playSound(stopSound);
+      });
+
+      spinReel(document.getElementById("track2"), 1600, s2, () => {
+        playSound(stopSound);
+      });
+
+      spinReel(document.getElementById("track3"), 2000, s3, () => {
+
+        playSound(stopSound);
+
+        const reward = getReward(s1, s2, s3);
+
+        if (reward > 0) {
+          balance += reward;
+          saveBalance();
+          updateBalance();
+          playSound(winSound);
+        }
+
+        if (reward >= 100) {
+          playSound(jackpotSound);
+          popup.style.display = "flex";
+        }
+
+        btn.disabled = false;
+        btn.textContent = "SPIN 🎰";
+      });
+
+    };
+
+  });
+
+</script>
+
+</body>
+</html>
